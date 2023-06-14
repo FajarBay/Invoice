@@ -10,7 +10,7 @@ use App\Models\InvoiceItem;
 class InvoiceController extends Controller
 {
     public function get_all_invoice() {
-        $invoices = Invoice::with('customer')->orderBy('id', 'DESC')->get();
+        $invoices = Invoice::with('customer')->orderBy('id', 'DESC')->paginate(5);;
         return response()->json([
             'invoices' => $invoices
         ], 200);
@@ -19,7 +19,7 @@ class InvoiceController extends Controller
     public function search_invoice(Request $request) {
         $search = $request->get('s');
         if($search != null) {
-            $invoices = Invoice::with('customer')->where('id', 'LIKE', "%$search")->get();
+            $invoices = Invoice::with('customer')->where('number', 'LIKE', "%$search")->paginate(5);;
             return response()->json([
                 'invoices' => $invoices
             ],200);
@@ -76,11 +76,13 @@ class InvoiceController extends Controller
 
         foreach (json_decode($invoiceitem) as $item) {
             $itemdata ['product_id'] = $item->id;
-            $itemdata ['invoice_id'] = $item->id;
+            $itemdata ['invoice_id'] = $invoice->id;
             $itemdata ['quantity'] = $item->quantity;
             $itemdata ['unit_price'] = $item->unit_price;
 
             InvoiceItem::create($itemdata);
         }
     }
+
+    
 }

@@ -2,6 +2,7 @@
     import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import router from '../../router';
+import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
     let form = ref([])
     let allcustomers = ref([])
@@ -11,7 +12,7 @@ import router from '../../router';
 
     const showModal = ref(false)
     const hideModal = ref(true)
-    let listproduct = ref([])
+    let listproduct = ref({'data' : []})
 
     onMounted(async () => {
         indexForm()
@@ -54,8 +55,8 @@ import router from '../../router';
         showModal.value = !hideModal.value
     }
 
-    const getProduct = async () => {
-        let response = await axios.get('/api/products')
+    const getProduct = async (page = 1) => {
+        let response = await axios.get(`/api/products?page=${page}`)
         // console.log('products', response)
         listproduct.value = response.data.products
     }
@@ -154,13 +155,13 @@ import router from '../../router';
                 <div class="table--items2" v-for="(itemcart, i) in listCart" :key="itemcart.id">
                     <p>#{{ itemcart.item_code }}  {{ itemcart.description }}</p>
                     <p>
-                        <input type="text" class="input" v-model="itemcart.unit_price">
+                        <input type="number" class="input" v-model="itemcart.unit_price">
                     </p>
                     <p>
-                        <input type="text" class="input" v-model="itemcart.quantity">
+                        <input type="number" class="input" v-model="itemcart.quantity">
                     </p>
                     <p v-if="itemcart.quantity">
-                        $ {{(itemcart.quantity)*(itemcart.unit_price)}}
+                        Rp {{(itemcart.quantity)*(itemcart.unit_price)}}
                     </p>
                     <p v-else></p>
                     <p style="color: red; font-size: 24px;cursor: pointer;" @click="removeItem(i)">
@@ -180,11 +181,12 @@ import router from '../../router';
                 <div>
                     <div class="table__footer--subtotal">
                         <p>Sub Total</p>
-                        <span>$ {{SubTotal()}}</span>
+                        <span>Rp {{SubTotal()}}</span>
                     </div>
                     <div class="table__footer--discount">
                         <p>Discount</p>
-                        <input type="number" class="input" v-model="form.discount">
+                        <!-- <input type="number" class="input" v-model="form.discount"> -->
+                        <CurrencyInput v-model="form.discount" :options="{ currency: 'IDR' }" class="input"/>
                     </div>
                     <div class="table__footer--total">
                         <p>Grand Total</p>
@@ -200,7 +202,10 @@ import router from '../../router';
                 
             </div>
             <div>
-                <a class="btn btn-secondary" @click="onSave()">
+                <router-link to="/" style="text-decoration: none; color: black;">
+                    <a class="btn btn-secondary">Kembali</a>
+                </router-link>
+                <a class="btn btn-secondary" style="margin-left: 10px;" @click="onSave()">
                     Save
                 </a>
             </div>
@@ -215,7 +220,7 @@ import router from '../../router';
             <hr><br>
             <div class="modal__items">
                 <ul style="list-style: none;">
-                    <li v-for="(item, i) in listproduct" :key="item.id" style="display:grid; grid-template-columns:30px 350px 15px; align-items: center; padding-bottom: 5px;">
+                    <li v-for="(item, i) in listproduct.data" :key="item.id" style="display:grid; grid-template-columns:30px 350px 15px; align-items: center; padding-bottom: 5px;">
                         <p>{{ i+1 }}</p>
                         <a href="#">{{ item.item_code }} {{ item.description }}</a>
                         <button @click="addCart(item)" style="border: 1px solid #e0e0e0; width: 35px; height: 35px; cursor: pointer;">
@@ -224,6 +229,10 @@ import router from '../../router';
                     </li>
                 </ul>
             </div>
+            <ul class="pagination">
+            <Bootstrap5Pagination :data="listproduct" @pagination-change-page="getProduct"/>
+            </ul>
+            <br>
             <br><hr>
             <div class="model__footer">
                 <button class="btn btn-light mr-2 btn__close--modal" @click="closeModel()">
@@ -236,3 +245,19 @@ import router from '../../router';
     
   </div>  
 </template>
+
+<script>
+import CurrencyInput from "./CurrencyInput.vue";
+
+export default {
+  name: "product",
+  components: {
+    CurrencyInput,
+  },
+  data() {
+    return {
+      value: 1234,
+    };
+  },
+};
+</script>
