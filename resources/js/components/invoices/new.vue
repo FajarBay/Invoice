@@ -4,11 +4,12 @@ import { onMounted, ref } from 'vue';
 import router from '../../router';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
-let form = ref([])
-let allcustomers = ref([])
-let customer_id = ref([])
-let item = ref([])
-let listCart = ref([])
+    let form = ref([])
+    let allcustomers = ref([])
+    let customer_id = ref([])
+    let item = ref([])
+    let listCart = ref([])
+    let searchProducts = ref([])
 
 const showModal = ref(false)
 const hideModal = ref(true)
@@ -109,6 +110,12 @@ function formatMoney(value) {
             style: "currency",
             currency: "IDR"
         }).format(value)
+    }
+
+    const search = async () => {
+        let response = await axios.get('/api/search_product?s='+searchProducts.value)
+        // console.log('response', response.data.invoices)
+        listproduct.value = response.data.products
     }
 
 </script>
@@ -220,37 +227,40 @@ function formatMoney(value) {
             </div>
 
         </div>
+        
+    </div>
 
-        <div class="modal main__modal " :class="{ show: showModal }">
-            <div class="modal__content">
-                <span class="modal__close btn__close--modal" @click="closeModel()">×</span>
-                <h3 class="modal__title">Add Item</h3>
-                <hr><br>
-                <div class="modal__items">
-                    <ul style="list-style: none;">
-                        <li v-for="(item, i) in listproduct.data" :key="item.id"
-                            style="display:grid; grid-template-columns:30px 350px 15px; align-items: center; padding-bottom: 5px;">
-                            <p>{{ i + 1 }}</p>
-                            <a href="#">{{ item.item_code }} - {{ item.description }}</a>
-                            <button @click="addCart(item)"
-                                style="border: 1px solid #e0e0e0; width: 35px; height: 35px; cursor: pointer;">
-                                +
-                            </button>
-                        </li>
-                    </ul>
+    <div class="modal main__modal " :class="{ show: showModal }">
+        <div class="modal__content">
+            <span class="modal__close btn__close--modal" @click="closeModel()">×</span>
+            <h3 class="modal__title">Add Item</h3>
+            <hr><br>
+                <div class="relative">
+                    <i class="table--search--input--icon fas fa-search "></i>
+                    <input class="table--search--input" type="text" placeholder="Search product"
+                    v-model="searchProducts" @keyup="search()">
                 </div>
-                <ul class="pagination">
-                    <Bootstrap5Pagination :data="listproduct" @pagination-change-page="getProduct" />
+            <div class="modal__items">
+                <ul style="list-style: none;">
+                    <li v-for="(item, i) in listproduct.data" :key="item.id" style="display:grid; grid-template-columns:30px 350px 15px; align-items: center; padding-bottom: 5px;">
+                        <p>{{ i+1 }}</p>
+                        <a href="#">{{ item.item_code }} {{ item.description }}</a>
+                        <button @click="addCart(item)" style="border: 1px solid #e0e0e0; width: 35px; height: 35px; cursor: pointer;">
+                            +
+                        </button>
+                    </li>
                 </ul>
-                <br>
-                <br>
-                <hr>
-                <div class="model__footer">
-                    <button class="btn btn-light mr-2 btn__close--modal" @click="closeModel()">
-                        Cancel
-                    </button>
-                    <button class="btn btn-light btn__close--modal ">Save</button>
-                </div>
+            </div>
+            <ul class="pagination">
+            <Bootstrap5Pagination :data="listproduct" @pagination-change-page="getProduct"/>
+            </ul>
+            <br>
+            <br><hr>
+            <div class="model__footer">
+                <button class="btn btn-light mr-2 btn__close--modal" @click="closeModel()">
+                    Cancel
+                </button>
+                <button class="btn btn-light btn__close--modal ">Save</button>
             </div>
         </div>
 
