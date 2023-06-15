@@ -38,6 +38,13 @@ const router = useRouter()
         console.log('form', form.data)
         router.push('/invoice/new')
     }
+    
+    function formatMoney(value) {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(value)
+    }
 
 </script>
 <template>
@@ -115,7 +122,7 @@ const router = useRouter()
                 <p v-else
                 ></p>
                 <p>{{item.due_date}}</p>
-                <p> $ {{item.total}}</p>
+                <p>{{formatMoney(item.total)}}</p>
             </div>
             <div class="table--items" v-else>
                 <p>Invoice not found</p>

@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from "vue-router";
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
+
 const router = useRouter()
 
     let products = ref({'data' : []})
@@ -21,7 +22,7 @@ const router = useRouter()
     const getProduct = async (page = 1) => {
             let response = await axios.get(`/api/get_all_product?page=${page}`)
             products.value = response.data.products
-            // console.log('response', products.value.total)
+            console.log('response', products)
         }
 
     const openModel = () => {
@@ -56,6 +57,13 @@ const router = useRouter()
         // router.push('/product')
         getProduct()
         closeModel()
+    }
+
+    function formatMoney(value) {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(value)
     }
     
 </script>
@@ -122,11 +130,11 @@ const router = useRouter()
             </div>
 
             <!-- item 1 -->
-            <div class="table--items" v-for="item, total in products.data" :key="item.id" v-if="products.data.length > 0">
-                <a href="#" class="table--items--transactionId">#{{total + 1}}</a>
+            <div class="table--items" v-for="item, index in products.data" :key="item.id" v-if="products.data.length > 0">
+                <a href="#" class="table--items--transactionId">#{{index + 1}}</a>
                 <p>{{item.item_code}}</p>
                 <p>#{{item.description}}</p>
-                <p>{{item.unit_price}}</p>
+                <p>{{formatMoney(item.unit_price) }}</p>
             </div>
             <div class="table--items" v-else>
                 <p>Product not found</p>
@@ -190,5 +198,8 @@ export default {
   },
 };
 
+// let num = products.unit_price;
+// let text = num.toLocaleString("id-ID", {style:"currency", currency:"IDR"});
 
+// document.getElementById("demo").innerHTML = text;
 </script>

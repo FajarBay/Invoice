@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function search_product(Request $request) {
         $search = $request->get('s');
         if($search != null) {
-            $products = Product::where('id', 'LIKE', "%$search")->paginate(5);
+            $products = Product::where('description', 'LIKE', "%".$search."%")->paginate(5);
             return response()->json([
                 'products' => $products
             ],200);
