@@ -73,7 +73,7 @@ const SubTotal = () => {
 const Total = () => {
     let total = 0
     listCart.value.map((data) => {
-        total = total + (SubTotal() - form.value.discount)
+        total = SubTotal() - form.value.discount
     })
     return total
 }
@@ -137,10 +137,11 @@ function formatMoney(value) {
                 <div class="card__content--header">
                     <div>
                         <p class="my-1">Customer</p>
-                        <select name="" id="" class="input" v-model="customer_id">
+                        <!-- <select name="" id="" class="input" v-model="customer_id">
                             <option :value="customer.id" v-for="customer in allcustomers" :key="customer.id">{{
                                 customer.firstname }}</option>
-                        </select>
+                        </select> -->
+                        <input type="text" class="input" v-model="customer_id">
                     </div>
                     <div>
                         <p class="my-1">Tanggal</p>

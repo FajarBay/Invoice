@@ -135,7 +135,7 @@ const router = useRouter()
             <div class="table--items" v-for="item, index in products.data" :key="item.id" v-if="products.data.length > 0">
                 <a href="#" class="table--items--transactionId">#{{index + 1}}</a>
                 <p>{{item.item_code}}</p>
-                <p>#{{item.description}}</p>
+                <p>{{item.description}}</p>
                 <p>{{formatMoney(item.unit_price) }}</p>
                 <p>
                     <a class="btn btn-warning" style="margin-right: 5px;">

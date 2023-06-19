@@ -36,7 +36,7 @@ const router = useRouter()
 
     const newInvoice = async () => {
         let form = await axios.get("/api/create_invoice")
-        console.log('form', form.data)
+        // console.log('form', form.data)
         router.push('/invoice/new')
     }
     
@@ -119,9 +119,10 @@ const router = useRouter()
                 <a href="#" class="table--items--transactionId">#{{item.id}}</a>
                 <p>{{item.date}}</p>
                 <p>{{item.number}}</p>
-                <p v-if="item.customer">{{item.customer.firstname}}</p>
+                <!-- <p v-if="item.customer">{{item.customer.firstname}}</p>
                 <p v-else
-                ></p>
+                ></p> -->
+                <p>{{item.customer_id}}</p>
                 <p>{{item.due_date}}</p>
                 <p>{{formatMoney(item.total)}}</p>
             </div>
