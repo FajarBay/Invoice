@@ -8,7 +8,7 @@
 
 body {
     
-    background: #6c5ce7;
+    background: #2a9686;
     color:#FFF;
 
 }
@@ -82,6 +82,36 @@ h2 {
 .btn-secondary:hover {
     background: #f1f1f1;
     color: #6a727a;
+}
+
+.btn-primer {
+    background: #006fbb;
+    color: white;
+}
+
+.btn-primer:hover {
+    background: #0061a1;
+    color: white;
+}
+
+.btn-warning {
+    background: #ff9d1d;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #ff961d;
+    color: white;
+}
+
+.btn-danger {
+    background: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #f13426;
+    color: white;
 }
 
 
@@ -641,3 +671,28 @@ ul {
     background-color: #4CAF50;
     color: white;
   }
+
+  .tambah:hover {
+    background-color: #2f9733;
+    color: white;
+  }
+
+  .icon {
+    width: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* .center {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  } */
+/* 
+  .column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+  } */

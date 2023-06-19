@@ -101,7 +101,7 @@ const router = useRouter()
                         </li>
                         <li>
                             <p class="table--filter--link ">
-                                <a class="btn btn-secondary tambah" @click="openModel() | newProduct()">
+                                <a class="btn tambah" @click="openModel() | newProduct()">
                                    + Tambah Produk
                                 </a>
                             </p>
@@ -128,6 +128,7 @@ const router = useRouter()
                 <p>Kode Produk</p>
                 <p>Nama</p>
                 <p>Harga</p>
+                <p>Opsi</p>
             </div>
 
             <!-- item 1 -->
@@ -136,6 +137,14 @@ const router = useRouter()
                 <p>{{item.item_code}}</p>
                 <p>#{{item.description}}</p>
                 <p>{{formatMoney(item.unit_price) }}</p>
+                <p>
+                    <a class="btn btn-warning" style="margin-right: 5px;">
+                        <img :src="'/assets/edit.png'" class="icon">
+                    </a>
+                    <a class="btn btn-danger">
+                        <img :src="'/assets/delete.png'" class="icon">
+                    </a>
+                </p>
             </div>
             <div class="table--items" v-else>
                 <p>Product not found</p>
