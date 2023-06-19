@@ -22,15 +22,29 @@ class ProductController extends Controller
         ], 200);
     }
 
+    // public function search_product(Request $request) {
+    //     $search = $request->get('s');
+    //     if($search != null) {
+    //         $products = Product::where('description', 'LIKE', "%".$search."%")->paginate(5);
+    //         return response()->json([
+    //             'products' => $products
+    //         ],200);
+    //     }else {
+    //         return $this->get_all_product();
+    //     }
+    // }
+
     public function search_product(Request $request) {
-        $search = $request->get('s');
+        $search = $request->s;
         if($search != null) {
-            $products = Product::where('description', 'LIKE', "%".$search."%")->paginate(5);
+            $products = Product::where(function($q) use ($search) {
+                $q->where('description', 'LIKE', "%".$search."%");
+            })->orderBy('id', 'DESC')->paginate(5);
             return response()->json([
                 'products' => $products
             ],200);
         }else {
-            return $this->get_all_product();
+            return $this->all_product();
         }
     }
 

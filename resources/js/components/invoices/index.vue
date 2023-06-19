@@ -12,6 +12,7 @@ const router = useRouter()
 
     onMounted(async () => {
         getInvoices()
+        search()
     })
 
     const getInvoices = async (page = 1) => {
@@ -27,8 +28,8 @@ const router = useRouter()
         // products.value = response.data.products
     }
 
-    const search = async () => {
-        let response = await axios.get('/api/search_invoice?s='+searchInvoice.value)
+    const search = async ( page = 1) => {
+        let response = await axios.get(`/api/search_invoice?page=${page}&s=`+searchInvoice.value)
         // console.log('response', response.data.invoices)
         invoices.value = response.data.invoices
     }
@@ -58,7 +59,7 @@ const router = useRouter()
             </div>
             <div>
                 <a class="btn btn-secondary" @click="newInvoice()">
-                    New Invoice
+                    Invoice Baru
                 </a>
             </div>
         </div>
@@ -83,7 +84,7 @@ const router = useRouter()
                         <li>
                             <p class="table--filter--link ">
                                 <a class="btn btn-secondary" @click="Product()">
-                                    Product
+                                    Produk
                                 </a>
                             </p>
                         </li>
@@ -106,8 +107,8 @@ const router = useRouter()
 
             <div class="table--heading">
                 <p>ID</p>
-                <p>Date</p>
-                <p>Number</p>
+                <p>Tanggal</p>
+                <p>Invoice</p>
                 <p>Customer</p>
                 <p>Due Date</p>
                 <p>Total</p>
@@ -129,7 +130,7 @@ const router = useRouter()
             </div>
             <br>
             <ul class="pagination">
-            <Bootstrap5Pagination :data="invoices" @pagination-change-page="getInvoices"/>
+            <Bootstrap5Pagination :data="invoices" @pagination-change-page="search"/>
         </ul>
         </div>
         

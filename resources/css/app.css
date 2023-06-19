@@ -636,3 +636,8 @@ ul {
   }
   
   .pagination li:hover:not(.active) {background-color: #ddd;}
+
+  .tambah {
+    background-color: #4CAF50;
+    color: white;
+  }

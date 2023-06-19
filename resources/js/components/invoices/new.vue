@@ -119,7 +119,7 @@ function formatMoney(value) {
 
             <div class="card__header">
                 <div>
-                    <h2 class="invoice__title">New Invoice</h2>
+                    <h2 class="invoice__title">Invoice baru</h2>
                 </div>
                 <div>
 
@@ -136,13 +136,13 @@ function formatMoney(value) {
                         </select>
                     </div>
                     <div>
-                        <p class="my-1">Date</p>
+                        <p class="my-1">Tanggal</p>
                         <input id="date" placeholder="dd-mm-yyyy" type="date" class="input" v-model="form.date"> <!---->
                         <p class="my-1">Due Date</p>
                         <input id="due_date" type="date" class="input" v-model="form.due_date">
                     </div>
                     <div>
-                        <p class="my-1">Numero</p>
+                        <p class="my-1">Invoice</p>
                         <input type="text" class="input" v-model="form.number">
                         <p class="my-1">Reference(Optional)</p>
                         <input type="text" class="input" v-model="form.reference">
@@ -152,8 +152,8 @@ function formatMoney(value) {
                 <div class="table">
 
                     <div class="table--heading2">
-                        <p>Item Description</p>
-                        <p>Unit Price</p>
+                        <p>Nama Barang</p>
+                        <p>Harga</p>
                         <p>Qty</p>
                         <p>Total</p>
                         <p></p>
@@ -177,13 +177,13 @@ function formatMoney(value) {
                         </p>
                     </div>
                     <div style="padding: 10px 30px !important;">
-                        <button class="btn btn-sm btn__open--modal" @click="openModel()">Add New Line</button>
+                        <button class="btn btn-sm btn__open--modal" @click="openModel()">Tambah Barang</button>
                     </div>
                 </div>
 
                 <div class="table__footer">
                     <div class="document-footer">
-                        <p>Terms and Conditions</p>
+                        <p>Keterangan</p>
                         <textarea cols="50" rows="7" class="textarea" v-model="form.term_and_conditions"></textarea>
                     </div>
                     <div>
@@ -192,12 +192,12 @@ function formatMoney(value) {
                             <span>{{ formatMoney(SubTotal()) }}</span>
                         </div>
                         <div class="table__footer--discount">
-                            <p>Discount</p>
+                            <p>Diskon</p>
                             <!-- <input type="number" class="input" v-model="form.discount"> -->
                             <CurrencyInput v-model="form.discount" :options="{ currency: 'IDR' }" class="input" />
                         </div>
                         <div class="table__footer--total">
-                            <p>Grand Total</p>
+                            <p>Total</p>
                             <span>{{ formatMoney(Total()) }}</span>
                         </div>
                     </div>
@@ -224,7 +224,7 @@ function formatMoney(value) {
         <div class="modal main__modal " :class="{ show: showModal }">
             <div class="modal__content">
                 <span class="modal__close btn__close--modal" @click="closeModel()">×</span>
-                <h3 class="modal__title">Add Item</h3>
+                <h3 class="modal__title">Tambah Item</h3>
                 <hr><br>
                 <div class="modal__items">
                     <ul style="list-style: none;">

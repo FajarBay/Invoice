@@ -17,12 +17,13 @@ const router = useRouter()
     onMounted(async () => {
         getProduct()
         newProduct()
+        search()
     })
 
     const getProduct = async (page = 1) => {
             let response = await axios.get(`/api/get_all_product?page=${page}`)
             products.value = response.data.products
-            console.log('response', products)
+            // console.log('response', products)
         }
 
     const openModel = () => {
@@ -33,8 +34,8 @@ const router = useRouter()
         showModal.value = !hideModal.value
     }
 
-    const search = async () => {
-        let response = await axios.get('/api/search_product?s='+searchProducts.value)
+    const search = async (page = 1) => {
+        let response = await axios.get(`/api/search_product?page=${page}&s=`+searchProducts.value)
         // console.log('response', response.data.invoices)
         products.value = response.data.products
     }
@@ -100,7 +101,7 @@ const router = useRouter()
                         </li>
                         <li>
                             <p class="table--filter--link ">
-                                <a class="btn btn-secondary" @click="openModel() | newProduct()">
+                                <a class="btn btn-secondary tambah" @click="openModel() | newProduct()">
                                    + Tambah Produk
                                 </a>
                             </p>
@@ -141,7 +142,7 @@ const router = useRouter()
             </div>
             <br>
                 <ul style="list-style: none;">
-                <Bootstrap5Pagination :data="products" @pagination-change-page="getProduct"/>
+                <Bootstrap5Pagination :data="products" @pagination-change-page="search"/>
                 </ul>
         </div>
         
