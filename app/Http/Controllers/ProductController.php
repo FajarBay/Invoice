@@ -73,4 +73,13 @@ class ProductController extends Controller
 
         return Redirect::back()->with('message','Operation Successful !');
     }
+
+    public function delete_product($id) {
+        $product = Poduct::where('id', $id)->first();
+        $product->delete();
+        return response()->json([
+            'product' => $product,
+            'message' => 'Berhasil hapus data'
+        ],200);
+    }
 }

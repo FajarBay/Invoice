@@ -112,8 +112,8 @@ function formatMoney(value) {
         }).format(value)
     }
 
-    const search = async () => {
-        let response = await axios.get('/api/search_product?s='+searchProducts.value)
+    const search = async ( page = 1) => {
+        let response = await axios.get(`/api/search_product?page=${page}&s=`+searchProducts.value)
         // console.log('response', response.data.invoices)
         listproduct.value = response.data.products
     }
@@ -234,6 +234,18 @@ function formatMoney(value) {
             <div class="modal__content">
                 <span class="modal__close btn__close--modal" @click="closeModel()">×</span>
                 <h3 class="modal__title">Tambah Item</h3>
+                <div class="table--search">
+                <div class="table--search--wrapper">
+                    <select class="table--search--select" name="" id="">
+                        <option value="">Filter</option>
+                    </select>
+                </div>
+                <div class="relative">
+                    <i class="table--search--input--icon fas fa-search "></i>
+                    <input class="table--search--input" type="text" placeholder="Search product"
+                    v-model="searchProducts" @keyup="search()">
+                </div>
+            </div>
                 <hr><br>
                 <div class="modal__items">
                     <ul style="list-style: none;">
@@ -248,19 +260,8 @@ function formatMoney(value) {
                         </li>
                     </ul>
                 </div>
-            <div class="modal__items">
-                <ul style="list-style: none;">
-                    <li v-for="(item, i) in listproduct.data" :key="item.id" style="display:grid; grid-template-columns:30px 350px 15px; align-items: center; padding-bottom: 5px;">
-                        <p>{{ i+1 }}</p>
-                        <a href="#">{{ item.item_code }} {{ item.description }}</a>
-                        <button @click="addCart(item)" style="border: 1px solid #e0e0e0; width: 35px; height: 35px; cursor: pointer;">
-                            +
-                        </button>
-                    </li>
-                </ul>
-            </div>
             <ul class="pagination">
-            <Bootstrap5Pagination :data="listproduct" @pagination-change-page="getProduct"/>
+            <Bootstrap5Pagination :data="listproduct" @pagination-change-page="search"/>
             </ul>
             <br>
             <br><hr>

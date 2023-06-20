@@ -36,8 +36,8 @@ const router = useRouter()
 
     const search = async (page = 1) => {
         let response = await axios.get(`/api/search_product?page=${page}&s=`+searchProducts.value)
-        // console.log('response', response.data.invoices)
         products.value = response.data.products
+        // console.log('response', response)
     }
 
     const newProduct = async () => {
@@ -65,6 +65,14 @@ const router = useRouter()
             style: "currency",
             currency: "IDR"
         }).format(value)
+    }
+
+    const removeItem = async ( index ) => {
+        if(confirm('Apakah anda ingin menghapus data?')){
+            await axios.delete(`/api/get_all_product/${index}/delete_product`)
+            getProduct()
+            // console.log(index)
+        }
     }
     
 </script>
@@ -141,7 +149,7 @@ const router = useRouter()
                     <a class="btn btn-warning" style="margin-right: 5px;">
                         <img :src="'/assets/edit.png'" class="icon">
                     </a>
-                    <a class="btn btn-danger">
+                    <a class="btn btn-danger" @click="removeItem(item.id)">
                         <img :src="'/assets/delete.png'" class="icon">
                     </a>
                 </p>
