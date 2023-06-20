@@ -68,6 +68,7 @@ class InvoiceController extends Controller
                 'product' => null,
                 'unit_price' => 0,
                 'quantity' => 1,
+                'satuan' => null,
             ],
         ];
         return response()->json($formData);
@@ -92,10 +93,30 @@ class InvoiceController extends Controller
             $itemdata ['product_id'] = $item->id;
             $itemdata ['invoice_id'] = $invoice->id;
             $itemdata ['quantity'] = $item->quantity;
+            $itemdata ['satuan'] = $item->satuan;
             $itemdata ['unit_price'] = $item->unit_price;
 
             InvoiceItem::create($itemdata);
         }
+    }
+
+    public function show_invoice($id) {
+        $invoice = Invoice::with(['customer', 'invoice_items.product'])->find($id);
+        return response()->json([
+            'invoice' => $invoice
+        ],200);
+    }
+
+    public function edit_invoice($id) {
+        $invoice = Invoice::with(['customer', 'invoice_items.product'])->find($id);
+        return response()->json([
+            'invoice' => $invoice
+        ],200);
+    }
+
+    public function delete_invoice_items($id) {
+        $invoiceitem = InvoiceItem::findOrFail($id);
+        $invoiceitem->delete();
     }
 
     

@@ -7,7 +7,10 @@ import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
 const router = useRouter()
 
-    let products = ref({'data' : []})
+    let products = ref({
+        'data' : [],
+        'id' : ''
+    })
     let searchProducts = ref([])
     let form = ref([])
 
@@ -23,7 +26,7 @@ const router = useRouter()
     const getProduct = async (page = 1) => {
             let response = await axios.get(`/api/get_all_product?page=${page}`)
             products.value = response.data.products
-            // console.log('response', products)
+            // console.log(products.value.data)
         }
 
     const openModel = () => {
@@ -67,12 +70,16 @@ const router = useRouter()
         }).format(value)
     }
 
-    const removeItem = async ( index ) => {
+    const deleteProduct = (id, i) => {
+        console.log(products.value.data)
+        products.value.data.splice(i,1)
         if(confirm('Apakah anda ingin menghapus data?')){
-            await axios.delete(`/api/get_all_product/${index}/delete_product`)
-            getProduct()
-            // console.log(index)
-        }
+            if ( id != undefined ) {
+                axios.get('/api/delete_product/'+id)
+            }
+        }else {
+                getProduct()
+            }
     }
     
 </script>
@@ -149,7 +156,7 @@ const router = useRouter()
                     <a class="btn btn-warning" style="margin-right: 5px;">
                         <img :src="'/assets/edit.png'" class="icon">
                     </a>
-                    <a class="btn btn-danger" @click="removeItem(item.id)">
+                    <a class="btn btn-danger" @click="deleteProduct(item.id, i)">
                         <img :src="'/assets/delete.png'" class="icon">
                     </a>
                 </p>

@@ -32,4 +32,7 @@ Route::get('/customers', [CustomerController::class, 'all_customer']);
 Route::get('/products', [ProductController::class, 'all_product']);
 Route::post('/add_invoice', [InvoiceController::class, 'add_invoice']);
 Route::post('/add_product', [ProductController::class, 'add_product']);
-Route::post('/delete_product/{id}', [ProductController::class, 'delete_product']);
+Route::get('/delete_product/{id}', [ProductController::class, 'delete_product']);
+Route::get('/show_invoice/{id}', [InvoiceController::class, 'show_invoice']);
+Route::get('/edit_invoice/{id}', [InvoiceController::class, 'edit_invoice']);
+Route::get('/delete_invoice_items/{id}', [InvoiceController::class, 'delete_invoice_items']);

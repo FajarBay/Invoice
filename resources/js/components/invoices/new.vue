@@ -39,7 +39,8 @@ const addCart = (item) => {
         item_code: item.item_code,
         description: item.description,
         unit_price: item.unit_price,
-        quantity: item.quantity
+        quantity: item.quantity,
+        satuan: item.satuan
     }
     listCart.value.push(itemcart)
     closeModel()
@@ -163,7 +164,8 @@ function formatMoney(value) {
                         <p>Nama Barang</p>
                         <p>Harga</p>
                         <p>Qty</p>
-                        <p>Total</p>
+                        <p>Satuan</p>
+                        <p>Jumlah</p>
                         <p></p>
                     </div>
 
@@ -175,6 +177,9 @@ function formatMoney(value) {
                         </p>
                         <p>
                             <input type="number" class="input" v-model="itemcart.quantity">
+                        </p>
+                        <p>
+                            <input type="text" class="input" v-model="itemcart.satuan">
                         </p>
                         <p v-if="itemcart.quantity">
                             {{ formatMoney((itemcart.quantity) * (itemcart.unit_price)) }}
@@ -200,7 +205,7 @@ function formatMoney(value) {
                             <span>{{ formatMoney(SubTotal()) }}</span>
                         </div>
                         <div class="table__footer--discount">
-                            <p>Diskon</p>
+                            <p>Diskon / DP</p>
                             <!-- <input type="number" class="input" v-model="form.discount"> -->
                             <CurrencyInput v-model="form.discount" :options="{ currency: 'IDR' }" class="input" />
                         </div>

@@ -267,7 +267,7 @@ ul {
 
 .table--heading2 {
     display: grid;
-    grid-template-columns: 550px 1fr 1fr 1fr 25px;
+    grid-template-columns: 450px 1fr 0.75fr 1fr 1fr 25px;
     grid-gap: 10px;
     padding: 10px 30px !important;
     font-weight: 900;
@@ -277,7 +277,7 @@ ul {
 
 .table--items2 {
     display: grid;
-    grid-template-columns: 550px 1fr 1fr 1fr 25px;
+    grid-template-columns: 450px 1fr 0.75fr 1fr 1fr 25px;
     grid-gap: 10px;
     align-items: center;
     border-bottom: 1px solid #e0e0e0;
@@ -466,17 +466,29 @@ ul {
 }
 
 .logo {
-    padding-top:40px;
-    padding-left:25px;
-    height: 60px;
+    display: flex;
+    padding-top:10px;
+    padding-left:20px;
+    height: 100px;
     padding-bottom: 15px;
+}
+
+.alamat {
+    margin: auto;
+    font: bold 100% sans-serif;
+    letter-spacing: 0.1em;
+    background-color: white;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 25px;
 }
 
 .invoice__header--title {
     background-color: #fca120; 
     display: grid; 
     grid-template-columns: 65% 1fr 1fr;
-    margin-top: 80px;
+    margin-top: 10px;
 }
 
 .invoice__header--title-1 {
@@ -488,6 +500,18 @@ ul {
     font-size: 36px;
     padding-left: 45px;
     padding-right: 45px;
+}
+
+.invoice__header--title-2 {
+    font: bold 100% sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-color: #fca120;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    padding-left: 45px;
+    padding-right: 25px;
 }
 
 .invoice__header--item {
@@ -530,7 +554,7 @@ ul {
 
 .table--heading3 {
     display: grid;
-    grid-template-columns: 25px 500px 1fr 1fr 1fr ;
+    grid-template-columns: 25px 400px 1fr 1fr 1fr 1fr ;
     grid-gap: 10px;
     padding: 10px 30px !important;
     font-weight: 900;
@@ -546,7 +570,7 @@ ul {
 
 .table--items3 {
     display: grid;
-    grid-template-columns: 25px 500px 1fr 1fr 1fr ;
+    grid-template-columns: 25px 400px 1fr 1fr 1fr 1fr ;
     grid-gap: 10px;
     align-items: center;
     border-bottom: 1px solid #e0e0e0;
@@ -683,16 +707,17 @@ ul {
     margin-right: auto;
   }
 
-  /* .center {
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-  } */
-/* 
-  .column {
-    float: left;
-    width: 50%;
-    padding: 5px;
-    box-sizing: border-box;
-  } */
+  .materai {
+    margin: 20px 200px 20px 0px;
+    text-align: center;
+    padding: 30px;
+    border: black 1px solid;
+  }
+
+  .penerima {
+    font: 100% sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-color: white;
+    font-size: 24px;
+  }

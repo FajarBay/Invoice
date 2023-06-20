@@ -75,11 +75,7 @@ class ProductController extends Controller
     }
 
     public function delete_product($id) {
-        $product = Poduct::where('id', $id)->first();
+        $product = Product::findOrFail($id);
         $product->delete();
-        return response()->json([
-            'product' => $product,
-            'message' => 'Berhasil hapus data'
-        ],200);
     }
 }
